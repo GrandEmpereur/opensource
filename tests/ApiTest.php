@@ -15,8 +15,7 @@ class ApiTest extends TestCase
     {
         $api = new Api();
         $this->assertInstanceOf(\DateTime::class, $api->getDate());
-
         $this->assertIsString($api->getDate());
-        $this->assertSame(date('Y-m-d'), $api->getDateAsString());
+        $this->assertSame(date('Y-m-d H:i:s'), $api->getDateAsString());
     }
 }
