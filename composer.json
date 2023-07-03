@@ -1,0 +1,22 @@
+{
+    "name": "barto/opensource",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Barto\\Opensource\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "GrandEmpereur",
+            "email": "bartosikpatrickpro@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.0"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.10"
+    }
+}
