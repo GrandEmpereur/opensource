@@ -9,3 +9,7 @@ $events = $api->getEvents();
 
 $jsonEvents = json_encode($events, JSON_PRETTY_PRINT);
 echo $jsonEvents;
+
+$ratpData = $api->getAllLine();
+
+print_r($ratpData);
