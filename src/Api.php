@@ -10,4 +10,9 @@ class Api
     {
         return random_int(0, 100);
     }
+
+    public function getDate(): \DateTime
+    {
+        return new \DateTime();
+    }
 }
