@@ -2,17 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Empereur\Opensource;
+namespace Iim\td2;
 
-class Api 
+class Api
 {
     public function getRandomNumber(): int
     {
-        return random_int(0, 100);
+        return rand(0, 100);
     }
 
     public function getDate(): \DateTime
     {
         return new \DateTime();
+    }
+
+    public function getDateAsString(): string
+    {
+        return $this->getDate()->format('Y-m-d H:i:s');
     }
 }
