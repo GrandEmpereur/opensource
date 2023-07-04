@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Empereur\Opensource;
 
-require_once __DIR__ . '/GoogleClient.php';
-require_once __DIR__ . '/CalendarEvents.php';
-require_once __DIR__ . '/TransdevApi.php';
+require_once __DIR__ . '/services/GoogleClient.php';
+require_once __DIR__ . '/services/CalendarEvents.php';
+require_once __DIR__ . '/services/TransdevApi.php';
 
 class Api {
     private $googleClient;
