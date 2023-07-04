@@ -4,56 +4,30 @@ declare(strict_types=1);
 
 namespace Empereur\Opensource;
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
-use Google_Client;
-use Google_Service_Calendar;
-use Google_Service_Calendar_Event;
-use Dotenv\Dotenv;
-use function \json_encode;
+require_once __DIR__ . '/GoogleClient.php';
+require_once __DIR__ . '/CalendarEvents.php';
+require_once __DIR__ . '/TransdevApi.php';
 
 class Api {
-    private $client;
-    private $httpClient;
+    private $googleClient;
+    private $calendarEvents;
+    private $transdevApi;
 
     public function __construct() {
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
-        $dotenv->load();
-
-        $this->client = new Google_Client();
-        $this->client->setApplicationName($_ENV['APPLICATION_NAME']);
-        $this->client->setDeveloperKey($_ENV['DEVELOPER_KEY']);
-        $this->client->setScopes(Google_Service_Calendar::CALENDAR);
-        $this->client->setHttpClient(new \GuzzleHttp\Client(['verify' => false]));
+        $this->googleClient = new GoogleClient();
+        $this->calendarEvents = new CalendarEvents($this->googleClient);
+        $this->transdevApi = new TransdevApi();
     }
 
-    public function getEvents(): array|object {
-        $service = new Google_Service_Calendar($this->client);
-        $calendarId = $_ENV['CALENDAR_ID'];
-        $currentDate = date('Y-m-d');
-    
-        $optParams = array(
-            'orderBy' => 'startTime',
-            'singleEvents' => true,
-            'timeMin' => $currentDate . 'T00:00:00Z',
-            'timeMax' => date('Y-m-d', strtotime($currentDate . ' + 7 days')) . 'T00:00:00Z',
-        );
-    
-        $results = $service->events->listEvents($calendarId, $optParams);
-        $events = $results->getItems();
+    public function getGoogleCalendarEvents() {
+        return $this->calendarEvents->getEvents();
+    }
 
-        $formattedEvents = [];
-        foreach ($events as $event) {
-            $formattedEvent = [
-                'name' => $event->getSummary(),
-                'attendees' => $event->getAttendees(),
-                'location' => $event->getLocation(),
-                'start' => $event->getStart()->getDateTime(),
-                'end' => $event->getEnd()->getDateTime(),
-            ];
-            $formattedEvents[] = $formattedEvent;
-        }
+    public function getTransdevAllLines() {
+        return $this->transdevApi->getAllLines();
+    }
 
-        return $formattedEvents;
+    public function getTransdevBusStations(string $chosenUrl) {
+        return $this->transdevApi->getBusStations($chosenUrl);
     }
 }
