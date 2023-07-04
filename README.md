@@ -50,9 +50,18 @@ Les outils suivants ont été utilisés dans ce projet :
 
 Avant de commencer :checkered_flag:, vous devez avoir installé [PHP](https://www.php.net/) et [Composer](https://getcomposer.org/).
 
-## :checkered_flag: Starting ##
+De plus, vous devez créer un fichier `.env` à la racine du projet et y ajouter les variables d'environnement suivantes avec vos propres valeurs :
 
-```bash
+```dotenv
+APPLICATION_NAME="your-app-name"
+DEVELOPER_KEY="your-developer-key"
+CALENDAR_ID="your-calendar-id"
+:checkered_flag: Starting
+```
+
+```
+bash
+Copy code
 # Clone this project
 $ git clone https://github.com/GrandEmpereur/opensource
 
